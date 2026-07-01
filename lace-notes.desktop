@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Lace Notes
+Comment=A translucent sticky-note scratchpad
+Exec=python3 %h/Projects/lace-notes/lace-notes.py
+Icon=%h/Projects/lace-notes/assets/flower.svg
+Categories=Utility;TextEditor;
+Keywords=notes;sticky;
