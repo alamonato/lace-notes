@@ -492,6 +492,11 @@ class LaceNotesWindow(Gtk.Window):
 
     # ── Save ──
 
+    @staticmethod
+    def _markdown_text(text):
+        """Keep entered single newlines visible in Markdown renderers."""
+        return re.sub(r"(?<!\n)\n(?!\n)", "  \n", text)
+
     def on_save(self, _widget):
         title = self.title_entry.get_text().strip()
         if not title:
@@ -512,7 +517,7 @@ class LaceNotesWindow(Gtk.Window):
             anchor = it.get_child_anchor()
             if anchor is not None:
                 if text_accum:
-                    md_parts.append(text_accum)
+                    md_parts.append(self._markdown_text(text_accum))
                     text_accum = ""
                 for a, src, _display, original in self._images:
                     if a is anchor:
@@ -541,7 +546,7 @@ class LaceNotesWindow(Gtk.Window):
                 break
 
         if text_accum:
-            md_parts.append(text_accum)
+            md_parts.append(self._markdown_text(text_accum))
 
         md_content = "".join(md_parts)
         path = os.path.join(SAVE_DIR, f"{safe_title}.md")
